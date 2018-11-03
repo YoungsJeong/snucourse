@@ -1,0 +1,25 @@
+<br>
+<div class="container my-3 p-3"><!-- container -->
+  <div class="row" style="margin-left: 0.5em;">
+    <h2>검색 결과</h2>
+  </div>
+  <p *ngIf="courses?.length === 0">검색 결과가 없습니다</p>
+  <div class="row" style="margin-top: 1em;">
+      <div class="col-4">
+          <div id="list-example" class="list-group">
+              <a *ngFor="let course of courses; index as i"
+                 style="cursor: pointer"
+                 (click)="onClick(i)"
+                 class="list-group-item list-group-item-action"
+                 [class.active]="currentIndex === i">
+                {{ course.name }}
+                 <span class="badge badge-pill badge-primary">{{ course.type }}</span>
+                 <span class="text-secondary"> {{ course.lecturer }}</span>
+              </a>
+          </div>
+      </div>
+      <div class="col-8">
+        <course-detail *ngIf="courses?.length !== 0" [course]="courses[currentIndex]?.id"></course-detail>
+      </div>
+  </div>
+</div><!--/container-->

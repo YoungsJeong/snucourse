@@ -1,0 +1,78 @@
+<div data-spy="scroll" data-target="#list-example" data-offset="0" class="scrollspy-example z-depth-1">
+  <div id="classInfo">
+    <h4> {{ lecture?.name }}
+      <span class="badge badge-pill badge-primary"> {{ lecture?.type }}</span>
+      <span class="text-secondary"> {{ lecture?.lecturer }}</span></h4>
+    <div class="row">
+      <div class="col" style="margin-bottom: 1em;">
+        {{ lecture?.department }} | {{ lecture?.grade }} | {{ lecture?.credit_Total }}학점 | {{ lecture?.capacity }}명 | <a href="#" class="badge badge-secondary"> 강의계획서</a><br>
+        {{ lecture?.time }} <br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+       <h6>학점만족: <ngb-rating [rate]="lecture?.credit" max="5" readonly="true"></ngb-rating> {{ lecture?.credit }}</h6>
+       <h6>널널함: <ngb-rating [rate]="lecture?.easy" max="5" readonly="true"></ngb-rating> {{ lecture?.easy }}</h6>
+       <h6>유익함: <ngb-rating [rate]="lecture?.useful" max="5" readonly="true"></ngb-rating> {{ lecture?.useful }}</h6>
+       </div>
+     <div class="col">
+       <h5 style="text-color: #25115d;">총평: <ngb-rating [rate]="lecture?.avg_review_score" max="5" readonly="true"></ngb-rating> {{ Math.floor(lecture?.avg_review_score) }}</h5>
+     </div>
+    </div>
+  </div>
+  <br><br><hr>
+  <div id="reviewSection" style="margin-top: 2em; margin-bottom: 2em;">
+    <h5><mark>강의평 쓰기 <i class="fa fa-edit"></i></mark></h5>
+    <div id="reviewAdd"><!-- 강의평 등록 -->
+      <div class="form-group row">
+        <div class="col-sm-6">
+         <h6> 학점만족:
+         <ngb-rating [rate]="credit" (rateChange)="credit=$event" max="5"></ngb-rating>
+         {{credit}}</h6>
+         <h6> 널널함:
+         <ngb-rating [rate]="easy" (rateChange)="easy=$event" max="5"></ngb-rating>
+         {{easy}}</h6>
+         <h6> 유익함:
+         <ngb-rating [rate]="useful" (rateChange)="useful=$event" max="5"></ngb-rating>
+         {{useful}}</h6>
+       </div>
+       <div class="col">
+         <h5 style="text-color: #25115d;">총평: <ngb-rating [rate]="avg" max="5" readonly="true"></ngb-rating> {{ avg }}</h5>
+       </div>
+      </div>
+      <div class="form-group row">
+         <div class="col-sm-11">
+           <input type="textarea"
+                  [disabled]="alreadyReviewed()"
+                  (input)="invalid=false"
+                  [(ngModel)]="content"
+                  class="form-control"
+                  [class.is-invalid]="invalid"
+                  [attr.placeholder]="alreadyReviewed() ? '이미 강의 평가가 완료되었습니다' : '강의평을 입력해주세요'">
+         </div>
+        <div class="col-sm-1">
+          <button [disabled]="alreadyReviewed()" [class.btn-outline-danger]="invalid" class="btn btn-outline-primary float-right" (click)="writeOpinion()">등록</button>
+        </div>
+      </div>
+    </div><!--/강의평 등록 -->
+    <br><br><hr><br>
+    <div id="reviewList"><!-- 강의평 조회 -->
+      <h5><mark>등록된 강의평 <i class="fa fa-star"></i></mark></h5>
+      <b *ngIf="lecture?.lectureopinion_set.length === 0">등록된 강의평이 없습니다</b>
+      <ng-container *ngFor="let opinion of lecture?.lectureopinion_set.reverse()">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><ngb-rating [rate]="opinion.avg_review_score" max="5" readonly="true"></ngb-rating> {{ opinion.avg_review_score}}</h5>
+            <h6>학점만족: <ngb-rating [rate]="opinion.credit" max="5" readonly="true"></ngb-rating> {{ opinion.credit }}</h6>
+            <h6>널널함: <ngb-rating [rate]="opinion.easy" max="5" readonly="true"></ngb-rating> {{ opinion.easy }}</h6>
+            <h6>유익함: <ngb-rating [rate]="opinion.useful" max="5" readonly="true"></ngb-rating> {{ opinion.useful }}</h6>
+            <p class="card-text">2017년 봄학기</p>
+            <p class="card-text">{{ opinion.content }}</p>
+          </div>
+        </div>
+        <br>
+      </ng-container>
+    </div><!--/강의평 조회 -->
+  </div>
+</div>
+<br>

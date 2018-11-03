@@ -1,0 +1,46 @@
+<div class="container" style="margin-top: 3em;">
+  <div class="row"><!--name -->
+    <div class="col-sm-10" style="margin-bottom: 0.5em;">
+      <h2>{{ auth.user?.name }}</h2>
+    </div>
+  </div>
+  <div class="row"><!--progress bar -->
+    <div class="col-sm-3">
+    <p><ngb-progressbar showValue="true" type="info" [value]="progress"></ngb-progressbar></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"><!--left col-->
+      <ul class="list-group"><!-- 유저 정보 -->
+        <li class="list-group-item text-muted">{{ auth.user?.major?.name }} <br> 2018년 1학기</li>
+        <li class="list-group-item text-right">
+          <span class="pull-left"><strong>이수학점</strong></span> {{ graduate?.took_total_credit }}학점
+        </li>
+        <li class="list-group-item text-right">
+          <span class="pull-left"><strong>졸업까지</strong></span> {{ graduate?.total_credit_need }}학점
+        </li>
+        <li class="list-group-item text-right"><span class="pull-left">
+          <strong>교양</strong></span><span class="text-primary"> {{ graduate?.general_credit_need }}학점</span>
+        </li>
+        <li class="list-group-item text-right"><span class="pull-left">
+          <strong>전공</strong></span><span class="text-primary"> {{ graduate?.major_credit_need }}학점</span>
+        </li>
+      </ul><!--/유저 정보 -->
+    </div>
+    <div class="col-sm-9"><!--right col-->
+      <ngb-tabset>
+        <ngb-tab title="회원정보">
+          <ng-template ngbTabContent>
+            <profile-userinfo></profile-userinfo>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="평가강의">
+          <ng-template ngbTabContent>
+            <profile-userhistory></profile-userhistory>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset><!--/ngb-tabset-->
+    </div><!--/col-sm-9-->
+  </div><!--/row-->
+
+</div>

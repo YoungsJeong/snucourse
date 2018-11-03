@@ -1,0 +1,8 @@
+.scrollspy-example {
+    height: 200px;
+}
+
+.list-group-item.active {
+  background-color: #e0eaff;
+  color: #000000;
+}

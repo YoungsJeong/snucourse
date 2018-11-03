@@ -1,0 +1,44 @@
+<body class="text-center">
+  <form class="form-signin" [formGroup]="signInForm" (ngSubmit)="login()" novalidate>
+    <!--      <h4>로그인을 해주세요.</h4>-->
+    <label for="inputEmail" class="sr-only">이메일 주소</label>
+    <input type="email"
+           id="inputEmail"
+           class="form-control"
+           placeholder="이메일 주소"
+           (input)="error=false"
+           formControlName="email"
+           [class.is-invalid]="submitAttempt && formEmail?.invalid" autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password"
+           id="inputPassword"
+           class="form-control"
+           placeholder="비밀번호"
+           (input)="error=false"
+           [class.is-invalid]="submitAttempt && formPassword?.invalid"
+           formControlName="password">
+    <div class="alert alert-danger" *ngIf="submitAttempt && formEmail?.errors?.email">
+      이메일 형식에 맞춰주세요
+    </div>
+    <div class="alert alert-danger" *ngIf="submitAttempt && formEmail?.errors?.required">
+      이메일을 입력해주세요
+    </div>
+    <div class="alert alert-danger" *ngIf="submitAttempt && formPassword?.errors?.required">
+      비밀번호를 입력해주세요
+    </div>
+    <div class="alert alert-danger" *ngIf="error">
+      아이디 또는 비밀번호를 다시 확인해주세요
+      <br> 졸업하샤에 등록되지 않은 아이디이거나, 아이디 또는 비밀번호를 잘못 입력하셨습니다.
+    </div>
+    <button class="btn btn-lg btn-primary btn-block " type="submit">
+      <ng-container *ngIf="!pending else loading ">로그인</ng-container>
+    </button>
+    <button class="btn btn-lg btn-primary btn-block" (click)="goToSignUp()">회원가입</button>
+    <br>
+    <p class="mt-5 mb-3 text-muted ">2018-1학기 소프트웨어응용 인면조</p>
+  </form>
+</body>
+
+<ng-template #loading>
+  <loading></loading>
+</ng-template>

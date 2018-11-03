@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" (click)="goToHome()" style="cursor: pointer">
+    <img src="assets/images/snu.png" width="40" height="40">
+    <span class="navbar-brand mb-0 h1" style="margin-left:10px">졸업하샤</span>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">홈</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/courses" routerLinkActive="active">강의검색</a>
+      </li>
+    </ul>
+  </div>
+  <button class="btn btn-outline-dark" (click)="goToProfile()">
+    <b style="font-size:20px;">{{ name }}</b>님
+  </button>
+  <div ngbDropdown class="d-inline-block" style="margin-left:5px">
+    <button class="btn btn-outline-dark" id="dropdownBasic1" ngbDropdownToggle></button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button class="dropdown-item" (click)="auth.logout()">로그아웃</button>
+    </div>
+  </div>
+</nav>

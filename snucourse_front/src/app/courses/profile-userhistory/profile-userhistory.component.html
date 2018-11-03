@@ -1,0 +1,32 @@
+<div class="container" id="reviewList"><!-- 평가 강의 리스트 -->
+  <h5><mark>평가한 강의</mark></h5>
+  <b *ngIf="auth?.user?.lecture_opinions.length === 0">평가한 강의가 없습니다</b>
+  <div class="card" *ngFor="let course of auth?.user?.lecture_opinions" style="cursor:pointer" (click)="openModal(content)"><!-- 강의 -->
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h4 class="modal-title">강의 정보</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <course-detail [course]="course.lecture.id"></course-detail>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+      </div>
+    </ng-template>
+    <div class="card-body">
+      <h5 class="card-title">{{ course.lecture.name }}</h5>
+      <div class="card-text">
+        <p>{{ course.lecture.lecturer }} | {{ course.lecture.grade }}| {{ course.lecture.credit }}학점 | <span class="badge badge-pill badge-primary">{{ course.lecture.type }}</span> </p>
+        <h6>학점만족: <ngb-rating [rate]="course.credit" max="5" readonly="true"></ngb-rating> 3</h6>
+        <h6>널널함: <ngb-rating [rate]="course.easy" max="5" readonly="true"></ngb-rating> 3</h6>
+        <h6>유익함: <ngb-rating [rate]="course.useful" max="5" readonly="true"></ngb-rating> 3</h6>
+        <h5>총평: <ngb-rating [rate]="course.avg_review_score" max="5" readonly="true"></ngb-rating> 3</h5>
+      </div>
+    </div>
+  </div><!--/강의 -->
+</div>
+<br>
+<br><br>

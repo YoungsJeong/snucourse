@@ -1,0 +1,21 @@
+#searchTable {
+   border: solid 1px grey;
+   border-bottom-width: 2px;
+   border-right-width: 2px;
+   padding-bottom: 3.5rem !important;
+ }
+
+#firstRow, #secondRow, #thirdRow {
+  border-bottom: solid 1px grey;
+  margin: 0.5em;
+ }
+
+#btnGroup {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-right: 0.5em;
+}
+
+button {
+  margin: 3px;
+ }

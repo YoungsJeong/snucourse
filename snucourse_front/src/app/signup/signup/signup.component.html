@@ -1,0 +1,135 @@
+<div class="container">
+  <h1 class="display-3">SNU Course</h1>
+  <h4 class="text-center">개인정보를 입력해주세요.</h4>
+</div>
+<form class="form-signup" [formGroup]="signUpForm" (ngSubmit)="signUpRequest()">
+  <input type="email"
+         class="form-control"
+         id="inputEmail"
+         placeholder="이메일"
+         formControlName="email"
+         [class.is-valid]="formEmail?.valid"
+         [class.is-invalid]="formEmail?.dirty && formEmail?.invalid">
+  <div class="alert alert-danger" *ngIf="formEmail?.dirty && formEmail?.errors?.email">
+    이메일 형식에 맞춰주세요
+  </div>
+  <div class="alert alert-danger" *ngIf="formEmail?.dirty && formEmail?.errors?.required">
+    이메일을 입력해주세요
+  </div>
+  <br>
+  <input type="password"
+         class="form-control"
+         id="inputPassword"
+         placeholder="비밀번호"
+         formControlName="password"
+         [class.is-valid]="formPassword?.valid && !signUpForm?.errors?.passwordMismatch"
+         [class.is-invalid]="formPassword?.dirty && (formPassword?.invalid || signUpForm?.errors?.passwordMismatch)">
+  <div class="alert alert-danger" *ngIf="formPassword?.dirty && formPassword?.errors?.required">
+    패스워드를 입력해주세요
+  </div>
+  <div class="alert alert-danger" *ngIf="formPassword?.dirty && formPassword?.errors?.invalidPassword">
+    패스워드는 8자 이상이며 알파벳 소문자, 대문자, 숫자를 포함해야 합니다
+  </div>
+  <br>
+  <input type="password"
+         class="form-control"
+         id="inputPasswordCheck"
+         placeholder="비밀번호 확인"
+         formControlName="confirmPassword"
+         [class.is-valid]="formConfirmPassword?.valid && !signUpForm?.errors?.passwordMismatch"
+         [class.is-invalid]="formConfirmPassword?.dirty && (formConfirmPassword?.invalid && signUpForm?.errors?.passwordMismatch)">
+  <div class="alert alert-danger" *ngIf="signUpForm?.errors?.passwordMismatch">
+    패스워드가 일치하지 않습니다
+  </div>
+  <br>
+  <input type="text"
+         class="form-control"
+         id="inputName"
+         placeholder="이름"
+         formControlName="name"
+         [class.is-valid]="formName?.valid"
+         [class.is-invalid]="formName?.dirty && formName?.invalid">
+  <div class="alert alert-danger" *ngIf="formName?.dirty && formName?.errors?.required">
+    이름을 입력해주세요
+  </div>
+  <br>
+  <input type="text"
+         class="form-control"
+         id="inputYear"
+         placeholder="학번 (ex.2013-11311)"
+         formControlName="student_id"
+         [class.is-valid]="formStudentId?.valid"
+         [class.is-invalid]="formStudentId?.dirty && formStudentId?.invalid">
+  <div class="alert alert-danger" *ngIf="formStudentId?.dirty && formStudentId?.errors?.required">
+    학번을 입력해주세요
+  </div>
+  <div class="alert alert-danger" *ngIf="formStudentId?.dirty && formStudentId?.errors?.invalidStudentId">
+    학번을 올바르게 입력해주세요 (ex.2013-11311)
+  </div>
+  <br>
+  <input type="select"
+         class="form-control"
+         id="inputMajor1"
+         placeholder="주전공"
+         formControlName="major"
+         [ngbTypeahead]="search"
+         [resultTemplate]="rt"
+         [resultFormatter]="formatter"
+         [inputFormatter]="formatter"
+         [class.is-valid]="formMajor?.valid"
+         [class.is-invalid]="formMajor?.dirty && formMajor?.invalid">
+  <div class="alert alert-danger" *ngIf="formMajor?.dirty && formMajor?.errors?.required">
+    주전공을 입력해주세요
+  </div>
+  <div class="alert alert-danger" *ngIf="formMajor?.dirty && formMajor?.errors?.invalidDepartment">
+    존재하지 않는 학과입니다
+  </div>
+  <br>
+  <input type="text"
+         class="form-control"
+         id="inputMajor2"
+         placeholder="복수전공"
+         formControlName="double_major"
+         [ngbTypeahead]="search"
+         [resultFormatter]="formatter"
+         [resultTemplate]="rt"
+         [inputFormatter]="formatter"
+         [class.is-valid]="formDoubleMajor?.dirty && formDoubleMajor?.valid"
+         [class.is-invalid]="formDoubleMajor?.dirty && formDoubleMajor?.invalid">
+  <div class="alert alert-danger" *ngIf="formDoubleMajor?.dirty && formDoubleMajor?.errors?.invalidDepartment">
+    존재하지 않는 학과입니다
+  </div>
+  <br>
+  <input type="text"
+         class="form-control"
+         id="inputMajor3"
+         placeholder="부전공"
+         formControlName="minor"
+         [ngbTypeahead]="search"
+         [resultFormatter]="formatter"
+         [inputFormatter]="formatter"
+         [resultTemplate]="rt"
+         [class.is-valid]="formMinor?.dirty && formMinor?.valid"
+         [class.is-invalid]="formMinor?.dirty && formMinor?.invalid">
+  <div class="alert alert-danger" *ngIf="formMinor?.dirty && formMinor?.errors?.invalidDepartment">
+    존재하지 않는 학과입니다
+  </div>
+  <br>
+  <br>
+  <div *ngIf="error" class="alert alert-danger">
+    이미 가입된 학번이나 이메일입니다
+  </div>
+  <button [disabled]="signUpForm?.invalid" type="submit" class="btn btn-lg btn-primary btn-block">
+    <ng-container *ngIf="!pending else loading ">회원가입</ng-container>
+  </button>
+</form>
+
+<ng-template #loading>
+  <loading></loading>
+</ng-template>
+
+<ng-template #rt let-r="result" let-t="term">
+  <div style="width:200px">
+    {{ r.name }}
+  </div>
+</ng-template>

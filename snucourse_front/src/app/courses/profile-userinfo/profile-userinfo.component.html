@@ -1,0 +1,54 @@
+<div class="container">
+  <h5><mark>회원정보</mark></h5>
+  <form>
+    <div class="form-group row">
+      <label for="inputEmail" class="col-sm-2 col-form-label">이메일</label>
+      <div class="col-sm-5">
+        <input type="email" class="form-control" id="inputEmail" [value]="auth?.user?.email">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputPassword" class="col-sm-2 col-form-label">비밀번호</label>
+      <div class="col-sm-5">
+        <input type="password" class="form-control" id="inputPassword" [value]="12345">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputName" class="col-sm-2 col-form-label">이름</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputName" [value]="auth?.user?.name">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputID" class="col-sm-2 col-form-label">학번</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputID" [value]="auth?.user?.student_id">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="inputMajor1" class="col-sm-2 col-form-label">주전공</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputMajor1" [value]="auth?.user?.major.name">
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="auth?.user?.double_major.name !== ''">
+      <label for="inputMajor2" class="col-sm-2 col-form-label">복수전공</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputMajor2" [value]="auth?.user?.double_major.name">
+      </div>
+    </div>
+    <div class="form-group row" *ngIf="auth?.user?.minor.name !== ''">
+      <label for="inputMajor3" class="col-sm-2 col-form-label">부전공</label>
+      <div class="col-sm-5">
+        <input type="text" class="form-control" id="inputMajor3" [value]="auth?.user?.minor.name">
+      </div>
+    </div>
+    <br><br>
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">변경</button>
+      </div>
+    </div>
+  </form>
+</div>
+<br><br><br>
